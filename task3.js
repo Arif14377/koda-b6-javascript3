@@ -7,31 +7,21 @@ students = {
     name: ["Mika", "Mikayla", "Mikael", "Mamika", "Arif", "salika", "romeo"]
 }
 
+searchStudent("Ka", countResult)
 
-searchStudent("Ika")
+function searchStudent(searchKeyword, cb) {
+    const keyword = searchKeyword.toLowerCase()
+    console.log(keyword)
 
-function searchStudent(searchKeyword, callback) {
-    searchKeyword = searchKeyword.toLowerCase()
-    console.log(searchKeyword)
-    searchResult = []
+    const result = students.name.filter(nama => {
+        return nama.toLowerCase().includes(keyword)
+    })
 
-    students.name.forEach(element => {
-        for(i=0; i<element.length; i++) {
-            for(x=0; x<searchKeyword.length; x++){
-                if(element[i].includes(searchKeyword[x]) && element[i].includes(searchKeyword[x+1])){
-                    searchResult = searchResult.push(element)
-                    console.log(searchResult)
-                } else {
+    console.log(result)
 
-                }
-            }
-        }
-
-    });
     
 }
 
-function countResult(arr) {
-    count = arr.length
-    return count
+function countResult(res) {
+    console.log(`Hasil pencarian: ${res.length}`)
 }
