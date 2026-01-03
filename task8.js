@@ -7,20 +7,23 @@
 
 const url = "https://jsonplaceholder.typicode.com/users"
 
-async function getData() {
-    try{
-        const res = await fetch(url)
-        const data = await res.json()
+async function getAllData(url) {
+    const res = await fetch(url)
+    const dataUsers = await res.json()
 
-        for (i = 0; i < data.length; i++) {
-            email = email.push(data[i].email)
-            console.log(email)
-        };
-
-        
-    }catch{
-        console.log("fetch data gagal.")
-    }
+    return dataUsers
 }
 
-getData()
+async function getEmail(dataUsers) {
+    const email = dataUsers.map(dataUser => dataUser.email.toLowerCase())
+    return email
+}
+
+async function main() {
+    const semuaData = await getAllData(url)
+
+    const emails = await getEmail(semuaData)
+    console.log(emails)
+}
+
+main()
