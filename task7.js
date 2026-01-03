@@ -16,17 +16,22 @@ const persons = [
     }
 ]
 
-function antrian(data) {
-    return new Promise((resolve, reject) => {
-        idx = 0
-        if (persons) {
-            setTimeout(()=>{
-                console.log(person.name)
-                idx += 1
-                resolve(antrian())
-            }, persons.wait * 1000)
-        } else {
-            reject()
-        }
+
+
+function setWaktuHabis(nama, waktuTunggu) {
+    return new Promise(resolve => {
+        setTimeout(() => {
+            console.log(`Halo ${nama}, pesananmu sudah selesai`)
+            resolve()
+        }, waktuTunggu * 1000)
     })
 }
+
+async function cetakAntrian(data) {
+    for (const person of data) {
+        console.log(`Menunggu antrian... (${person.wait} detik)`);
+        await setWaktuHabis(person.name, person.wait);
+    }
+}
+
+cetakAntrian(persons);
