@@ -23,43 +23,27 @@ const data = [
     }
 ]
 
-function waktuTunggu(data) {
-    let tampungData = data
-    let timer = 0
-
-    tampungData.forEach((element, index) => {
-        if (index == 0) {
-            timer = timer
-        } else {
-            timer = (timer + element.wait)*1000
-        }
-
-        setTimeout(()=>{
-            console.log("Menunggu antrian...")
-        }, timer)
-
-        setTimeout(()=>{
-            console.log(`Halo ${element.name}, pesananmu sudah selesai.`)
-        }, timer)
-    });
+function setWaktuHabis(nama, waktuTunggu, callback) {
+    setTimeout(() => {
+        console.log(`Halo ${nama}, pesananmu sudah selesai`)
+        callback()
+    }, waktuTunggu*1000)
 }
 
+function main(i = 0) {
+    if (i >= data.length) {
+        return
+    }
+    // const nama = data[i].name
+    // const waktuTunggu = data[i].wait
+    // |- Destructuring:
+    const {name, wait} = data[i]
 
+    console.log("Menunggu antrian")
 
-function urutAntrian(data) {
-    let tampungData = data
-    let antrian = []
-    console.log(data[0].wait)
-    tampungData.forEach((element, index) => {
-        for (i = 0; i < data.length; i++) {
-            if (element.wait < data[i].wait && index !== i) {
-                antrian.push(element)
-            }
-            
-        }
-    });
-    console.log(antrian)
+    setWaktuHabis(name, wait, () => {
+        main(i+1)
+    })
 }
 
-waktuTunggu(data)
-// urutAntrian(data)
+main()
